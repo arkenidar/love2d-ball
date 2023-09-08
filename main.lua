@@ -11,6 +11,11 @@ local y = 150
 local speed_x = 5
 local speed_y = 5
 
+function love.mousemoved( x, y, dx, dy )
+  speed_x = dx
+  speed_y = dy
+end
+
 function love.update(dt)
 
   local increment_horizontal = dt*speed_x*10
