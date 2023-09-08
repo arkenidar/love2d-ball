@@ -12,8 +12,10 @@ local speed_x = 5
 local speed_y = 5
 
 function love.mousemoved( x, y, dx, dy )
-  speed_x = dx
-  speed_y = dy
+  if love.mouse.isDown(1) then
+  speed_x = speed_x + dx/2
+  speed_y = speed_y + dy/2
+  end
 end
 
 function love.update(dt)
