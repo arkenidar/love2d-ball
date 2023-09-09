@@ -21,13 +21,13 @@ function love.load()
   ball_radius = scale*ball_size/2
 
   -- bounds
-  x_min = 50
   x_max = 400
   y_max = 400
 
   -- calculations for update and draw
   border = 10
-  columns_width = x_min-border
+  columns_width = 30
+  x_min = border+columns_width+ball_radius
   columns_height = y_max+ball_radius-border
 
 end
@@ -63,22 +63,22 @@ function love.update(dt)
 
   -- horizontal rebounds (left and right)
   -- left rebound
-  if x < ( x_min + ball_radius ) then
-    x = ( x_min + ball_radius )
-    speed_x = speed_x * 0.7
+  if x < x_min then
+    x = x_min
+    speed_x = speed_x * 0.6
     speed_x = - speed_x
   end
   -- right rebound
   if x > x_max then
     x = x_max
-    speed_x = speed_x * 0.7
+    speed_x = speed_x * 0.6
     speed_x = - speed_x
   end
 
   -- vertical rebound (bottom rebound)
   if y > y_max then
     y = y_max
-    speed_y = speed_y * 0.7
+    speed_y = speed_y * 0.6
     speed_y = - speed_y
   end
 
