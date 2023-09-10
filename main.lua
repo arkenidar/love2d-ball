@@ -38,6 +38,8 @@ local y = 150
 local speed_x = 5
 local speed_y = 5
 local ball_rotation = 0
+local ball_rotation_speed = 0
+local attenuation = 0.99
 
 -- input: mouse, touch also
 function love.mousemoved( x, y, dx, dy )
@@ -82,11 +84,30 @@ function love.update(dt)
     speed_y = - speed_y
   end
 
-  -- friction (horizontal)
+  -- for angular speed (translation to rotation)
+  local ball_angle = math.pi/1024
+
+  -- friction (bottom, horizontal)
   if y == y_max then
-    speed_x = speed_x * 0.99
-    ball_rotation = ball_rotation + math.pi/1024*speed_x
+    speed_x = speed_x * attenuation
+    ball_rotation_speed = ball_angle*speed_x
   end
+
+  -- friction (left, vertical)
+  if x == x_min then
+    speed_y = speed_y * attenuation
+    ball_rotation_speed = ball_angle*speed_y
+  end
+
+  -- friction (right, vertical)
+  if x == x_max then
+    speed_y = speed_y * attenuation
+    ball_rotation_speed = -ball_angle*speed_y
+  end
+
+  -- ball rotation
+  ball_rotation = ball_rotation + ball_rotation_speed
+  ball_rotation_speed = ball_rotation_speed * attenuation
 
 end
 
