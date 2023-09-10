@@ -1,1 +1,1 @@
-%cd%\runtime-love2d\love.exe .
+start %cd%\runtime-love2d\love.exe .
