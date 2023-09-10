@@ -87,25 +87,30 @@ function love.update(dt)
   -- for angular speed (translation to rotation)
   local ball_angle = math.pi/32
 
+  local ball_rotation_speed_cumulative = 0
+  
   -- friction (bottom, horizontal)
   if y == y_max then
     speed_x = speed_x * attenuation
-    ball_rotation_speed = ball_angle*speed_x
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle*speed_x
   end
 
   -- friction (left, vertical)
   if x == x_min then
     speed_y = speed_y * attenuation
-    ball_rotation_speed = ball_angle*speed_y
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle*speed_y
   end
 
   -- friction (right, vertical)
   if x == x_max then
     speed_y = speed_y * attenuation
-    ball_rotation_speed = -ball_angle*speed_y
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative - ball_angle*speed_y
   end
 
   -- ball rotation
+  if ball_rotation_speed_cumulative ~= 0 then
+    ball_rotation_speed = ball_rotation_speed_cumulative
+  end
   ball_rotation_speed = ball_rotation_speed * attenuation
   ball_rotation = ball_rotation + dt*ball_rotation_speed
 
