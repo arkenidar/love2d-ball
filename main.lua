@@ -22,12 +22,12 @@ local x_min, x_max, y_max
 local border, columns_width, columns_height
 
 function love.load()
-  love.window.setTitle( ' "arcade-ball" in Love2D' )
+  love.window.setTitle(' "arcade-ball" in Love2D')
   drawable_ball = love.graphics.newImage("ball-shiny.png") -- square-sized image
 
   -- calculations for update and draw
   ball_size = drawable_ball:getWidth()
-  ball_radius = scale*ball_size/2
+  ball_radius = scale * ball_size / 2
 
   -- bounds
   x_max = 400
@@ -36,9 +36,8 @@ function love.load()
   -- calculations for update and draw
   border = 10
   columns_width = 30
-  x_min = border+columns_width+ball_radius
-  columns_height = y_max+ball_radius-border
-
+  x_min = border + columns_width + ball_radius
+  columns_height = y_max + ball_radius - border
 end
 
 -- ball: initial conditions
@@ -51,25 +50,24 @@ local ball_rotation_speed = 0
 local attenuation = 0.99
 
 -- input: mouse, touch also
-function love.mousemoved( x, y, dx, dy )
+function love.mousemoved(x, y, dx, dy)
   -- mouse drag to change speeds
   if love.mouse.isDown(1) then
-  speed_x = speed_x + dx/2
-  speed_y = speed_y + dy/2
+    speed_x = speed_x + dx / 2
+    speed_y = speed_y + dy / 2
   end
 end
 
 function love.update(dt)
-
   -- horizontal velocity
-  local increment_horizontal = dt*speed_x*10
+  local increment_horizontal = dt * speed_x * 10
   x = x + increment_horizontal
 
   -- vertical: gravity and vertical velocity
   local gravity = 1
   speed_y = speed_y + gravity
 
-  local increment_vertical = dt*speed_y*10
+  local increment_vertical = dt * speed_y * 10
   y = y + increment_vertical
 
   -- horizontal rebounds (left and right)
@@ -77,43 +75,43 @@ function love.update(dt)
   if x < x_min then
     x = x_min
     speed_x = speed_x * 0.6
-    speed_x = - speed_x
+    speed_x = -speed_x
   end
   -- right rebound
   if x > x_max then
     x = x_max
     speed_x = speed_x * 0.6
-    speed_x = - speed_x
+    speed_x = -speed_x
   end
 
   -- vertical rebound (bottom rebound)
   if y > y_max then
     y = y_max
     speed_y = speed_y * 0.6
-    speed_y = - speed_y
+    speed_y = -speed_y
   end
 
   -- for angular speed (translation to rotation)
-  local ball_angle = math.pi/32
+  local ball_angle = math.pi / 32
 
   local ball_rotation_speed_cumulative = 0
-  
+
   -- friction (bottom, horizontal)
   if y == y_max then
     speed_x = speed_x * attenuation
-    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle*speed_x
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle * speed_x
   end
 
   -- friction (left, vertical)
   if x == x_min then
     speed_y = speed_y * attenuation
-    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle*speed_y
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative + ball_angle * speed_y
   end
 
   -- friction (right, vertical)
   if x == x_max then
     speed_y = speed_y * attenuation
-    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative - ball_angle*speed_y
+    ball_rotation_speed_cumulative = ball_rotation_speed_cumulative - ball_angle * speed_y
   end
 
   -- ball rotation
@@ -121,23 +119,21 @@ function love.update(dt)
     ball_rotation_speed = ball_rotation_speed_cumulative
   end
   ball_rotation_speed = ball_rotation_speed * attenuation
-  ball_rotation = ball_rotation + dt*ball_rotation_speed
-
+  ball_rotation = ball_rotation + dt * ball_rotation_speed
 end
 
 function love.draw()
-
   -- ball (image and bounding square)
-  love.graphics.draw( drawable_ball, x, y, ball_rotation, scale, scale, ball_size/2, ball_size/2)
+  love.graphics.draw(drawable_ball, x, y, ball_rotation, scale, scale, ball_size / 2, ball_size / 2)
   --love.graphics.rectangle("line", x-ball_radius,y-ball_radius, ball_radius*2, ball_radius*2)
 
   -- vertical columns (bounding)
   -- left column
-  love.graphics.rectangle("fill", border, border, columns_width, columns_height )
+  love.graphics.rectangle("fill", border, border, columns_width, columns_height)
   -- right column
-  love.graphics.rectangle("fill", x_max+ball_radius, border, columns_width, columns_height )
+  love.graphics.rectangle("fill", x_max + ball_radius, border, columns_width, columns_height)
 
   -- horizontal floor (bounding)
-  love.graphics.rectangle("fill", border, columns_height+border, x_max+ball_radius+columns_width-border, columns_width)
-
+  love.graphics.rectangle("fill", border, columns_height + border, x_max + ball_radius + columns_width - border,
+    columns_width)
 end
