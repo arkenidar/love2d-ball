@@ -58,7 +58,16 @@ function love.mousemoved(x, y, dx, dy)
   end
 end
 
+-- keys
+local keys_down = {}
+function love.keypressed(key) keys_down[key] = true end
+
+function love.keyreleased(key) keys_down[key] = false end
+
 function love.update(dt)
+  -- quit with key
+  if keys_down["escape"] then love.event.quit() end
+
   -- horizontal velocity
   local increment_horizontal = dt * speed_x * 10
   x = x + increment_horizontal
