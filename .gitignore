@@ -1,0 +1,28 @@
+# Build artifacts
+build/
+*.o
+*.obj
+*.exe
+ball_game
+ball_game.exe
+
+# IDE files
+.vscode/settings.json
+.vs/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# CMake cache
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+
+# Backup files
+*.bak
+*~
