@@ -24,6 +24,26 @@
                 "${workspaceFolder}"
             ],
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Run C99 Ball Game (SDL3)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/ball_game",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build"
         }
     ]
 }
