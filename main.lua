@@ -23,7 +23,7 @@ local border, columns_width, columns_height
 
 function love.load()
   love.window.setTitle(' "arcade-ball" in Love2D')
-  drawable_ball = love.graphics.newImage("ball-shiny.png") -- square-sized image
+  drawable_ball = love.graphics.newImage("ball-shiny.bmp") -- square-sized image
 
   -- calculations for update and draw
   ball_size = drawable_ball:getWidth()
