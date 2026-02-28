@@ -43,9 +43,10 @@ else()
     
     # Configure SDL3 options
     set(SDL_SHARED ON CACHE BOOL "Build SDL3 shared library")
-    set(SDL_STATIC OFF CACHE BOOL "Build SDL3 static library") 
+    set(SDL_STATIC OFF CACHE BOOL "Build SDL3 static library")
     set(SDL_TEST_LIBRARY OFF CACHE BOOL "Build SDL3 test library")
     set(SDL_TESTS OFF CACHE BOOL "Build SDL3 tests")
+    set(SDL_X11_XTEST OFF CACHE BOOL "Disable XTEST extension (not required)")
     
     # Make SDL3 available
     FetchContent_MakeAvailable(SDL3)
